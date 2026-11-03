@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens: "annotated notebook".
+ * Warm paper and ink neutrals, one accent per mode, and a highlighter yellow
+ * used sparingly for emphasis. Colours are plain CSS variables so light/dark
+ * themes swap in one place; `@theme inline` exposes them to Tailwind as
+ * utilities such as `bg-surface`, `text-muted` or `border-line`.
+ * Text/background pairs meet WCAG AA (4.5:1 text, 3:1 input borders/focus).
+ */
+:root {
+  color-scheme: light dark;
+
+  --canvas: #f6f4ee;
+  --surface: #fffdf8;
+  --surface-2: #efece4;
+  --code-bg: #f4f1e9;
+  --line: #e2ddd0;
+  --line-strong: #cbc4b4;
+  --line-input: #8b8576;
+  --ink: #1d1c19;
+  --muted: #5f5a4f;
+  --subtle: #716b5d;
+
+  /* Primary actions are "ink" buttons; the highlighter marks key phrases. */
+  --brand: #1d1c19;
+  --brand-ink: #fffdf8;
+  --highlight: #ffe17a;
+
+  --learn: #1d4fc4;
+  --learn-soft: #e9eefb;
+  --learn-ink: #ffffff;
+  --debug: #b54708;
+  --debug-soft: #fbeee2;
+  --debug-ink: #ffffff;
+  --practice: #1b7a4a;
+  --practice-soft: #e5f3ea;
+  --practice-ink: #ffffff;
+
+  --status: #b7791f;
+  --danger: #b42318;
+  --danger-soft: #fcebea;
+  --success: #1b7a4a;
+
+  --focus: #1d4fc4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #131210;
+    --surface: #1a1916;
+    --surface-2: #24221e;
+    --code-bg: #161512;
+    --line: #33312b;
+    --line-strong: #4a463e;
+    --line-input: #78725f;
+    --ink: #eeebe3;
+    --muted: #aaa496;
+    --subtle: #8a8476;
+
+    --brand: #eeebe3;
+    --brand-ink: #1a1916;
+    --highlight: #5b4a0f;
+
+    --learn: #93b4ff;
+    --learn-soft: #1c2640;
+    --learn-ink: #0f1730;
+    --debug: #f5a65b;
+    --debug-soft: #382514;
+    --debug-ink: #2a1606;
+    --practice: #6dd49c;
+    --practice-soft: #142e1f;
+    --practice-ink: #0a2615;
+
+    --status: #e7b24f;
+    --danger: #ff9a8f;
+    --danger-soft: #3a1b18;
+    --success: #6dd49c;
+
+    --focus: #93b4ff;
+  }
+}
+
+/*
+ * Mode accents. Any element with `data-mode` re-points the generic `--mode*`
+ * variables, so the same `bg-mode` / `text-mode` classes pick up the right
+ * colour for Learn, Debug or Practice. Home falls back to ink.
+ */
+:root,
+[data-mode="home"] {
+  --mode: var(--ink);
+  --mode-soft: var(--surface-2);
+  --mode-ink: var(--surface);
+}
+[data-mode="learn"] {
+  --mode: var(--learn);
+  --mode-soft: var(--learn-soft);
+  --mode-ink: var(--learn-ink);
+}
+[data-mode="debug"] {
+  --mode: var(--debug);
+  --mode-soft: var(--debug-soft);
+  --mode-ink: var(--debug-ink);
+}
+[data-mode="practice"] {
+  --mode: var(--practice);
+  --mode-soft: var(--practice-soft);
+  --mode-ink: var(--practice-ink);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-code: var(--code-bg);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-input: var(--line-input);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-highlight: var(--highlight);
+  --color-mode: var(--mode);
+  --color-mode-soft: var(--mode-soft);
+  --color-mode-ink: var(--mode-ink);
+  --color-status: var(--status);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-success: var(--success);
+  --color-focus: var(--focus);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Serif display face, softened slightly for a friendlier tone. */
+.font-display {
+  font-variation-settings: "SOFT" 50;
+  letter-spacing: -0.015em;
+}
+
+/* Highlighter mark for key phrases: a flat band behind the lower part of the text. */
+.mark {
+  background: linear-gradient(transparent 55%, var(--highlight) 55%);
+  padding-inline: 0.08em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* One consistent, clearly visible focus indicator for every interactive element. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--highlight);
+  color: var(--ink);
+}
+
+pre,
+textarea {
+  tab-size: 4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

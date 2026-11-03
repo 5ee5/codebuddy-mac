@@ -1,0 +1,14 @@
+# Xcode
+xcuserdata/
+*.xcscmblueprint
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager (keep Package.resolved for reproducible pins)
+.build/
+.swiftpm/
+
+.DS_Store
