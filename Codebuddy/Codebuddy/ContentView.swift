@@ -37,6 +37,16 @@ private enum AppMode: String, CaseIterable, Identifiable {
         case .account: "person.circle"
         }
     }
+
+    /// `nil` for Account, which stays neutral rather than taking a mode color.
+    var accent: ModeAccent? {
+        switch self {
+        case .learn: .learn
+        case .practice: .practice
+        case .debug: .debug
+        case .account: nil
+        }
+    }
 }
 
 private struct MainShellView: View {
@@ -45,9 +55,16 @@ private struct MainShellView: View {
     var body: some View {
         NavigationSplitView {
             List(AppMode.allCases, selection: $selection) { mode in
-                Label(mode.rawValue, systemImage: mode.systemImage)
+                Label {
+                    Text(mode.rawValue)
+                } icon: {
+                    Image(systemName: mode.systemImage)
+                        .foregroundStyle(mode.accent?.color ?? Theme.ink)
+                }
             }
             .navigationTitle("CodeBuddy")
+            .scrollContentBackground(.hidden)
+            .background(Theme.surface)
         } detail: {
             switch selection {
             case .practice:
@@ -60,6 +77,7 @@ private struct MainShellView: View {
                 LearnView()
             }
         }
+        .background(Theme.canvas)
     }
 }
 

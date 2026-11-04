@@ -13,8 +13,9 @@ struct DebugView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text("Debug")
+                Label("Debug", systemImage: "ladybug")
                     .font(.largeTitle.bold())
+                    .foregroundStyle(Theme.debug)
 
                 Picker("Language", selection: $language) {
                     ForEach(ProgrammingLanguage.allCases) { language in
@@ -27,12 +28,16 @@ struct DebugView: View {
                 TextEditor(text: $code)
                     .font(.system(.body, design: .monospaced))
                     .frame(height: 180)
-                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(.quaternary))
+                    .padding(6)
+                    .background(Theme.codeBackground, in: RoundedRectangle(cornerRadius: 6))
+                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
 
                 Text("What went wrong").font(.headline)
                 TextEditor(text: $problem)
                     .frame(height: 80)
-                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(.quaternary))
+                    .padding(6)
+                    .background(Theme.surface, in: RoundedRectangle(cornerRadius: 6))
+                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
 
                 Button(action: submit) {
                     if isSubmitting {
@@ -41,6 +46,7 @@ struct DebugView: View {
                         Text("Find the bug")
                     }
                 }
+                .buttonStyle(.mode(.debug))
                 .disabled(
                     isSubmitting
                         || code.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -48,7 +54,7 @@ struct DebugView: View {
                 )
 
                 if let errorMessage {
-                    Text(errorMessage).foregroundStyle(.red)
+                    Text(errorMessage).foregroundStyle(Theme.danger)
                 }
 
                 if let answer {
@@ -57,6 +63,7 @@ struct DebugView: View {
             }
             .padding(24)
         }
+        .background(Theme.canvas)
         .navigationTitle("Debug")
     }
 
@@ -87,14 +94,14 @@ private struct DebugAnswerView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(answer.diagnosis).font(.headline)
+            Text(answer.diagnosis).font(.headline).foregroundStyle(Theme.debug)
             Text(answer.explanation)
 
             if answer.outcome == "needs_more_info", !answer.missingInfo.isEmpty {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("CodeBuddy needs more information:").font(.subheadline.bold())
                     ForEach(answer.missingInfo, id: \.self) { item in
-                        Text("•  \(item)")
+                        Text("\u{2022}  \(item)")
                     }
                 }
             }
@@ -105,23 +112,26 @@ private struct DebugAnswerView: View {
                     .font(.system(.body, design: .monospaced))
                     .padding(8)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
+                    .background(Theme.codeBackground, in: RoundedRectangle(cornerRadius: 6))
+                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
 
                 ForEach(answer.changes, id: \.change) { change in
                     VStack(alignment: .leading) {
                         Text(change.change).bold()
-                        Text(change.reason).foregroundStyle(.secondary)
+                        Text(change.reason).foregroundStyle(Theme.muted)
                     }
                 }
             }
 
             if !answer.nextSteps.isEmpty {
-                Text("Next steps").font(.headline)
+                Text("Next steps").font(.headline).foregroundStyle(Theme.debug)
                 ForEach(answer.nextSteps, id: \.self) { step in
-                    Text("•  \(step)")
+                    Text("\u{2022}  \(step)")
                 }
             }
         }
+        .padding(16)
+        .panelStyle()
     }
 }
 

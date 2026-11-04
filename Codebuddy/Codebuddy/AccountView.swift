@@ -10,24 +10,27 @@ struct AccountView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                Text("Account")
+                Label("Account", systemImage: "person.circle")
                     .font(.largeTitle.bold())
+                    .foregroundStyle(Theme.ink)
 
                 if let email = supabase.email {
                     Text("Signed in as **\(email)**")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Theme.muted)
                 }
 
                 ChangePasswordSection()
 
-                Button(role: .destructive) {
+                Button {
                     Task { await supabase.signOut() }
                 } label: {
                     Text("Sign Out")
                 }
+                .buttonStyle(.secondaryPanel)
             }
             .padding(24)
         }
+        .background(Theme.canvas)
         .navigationTitle("Account")
     }
 }
@@ -58,22 +61,22 @@ private struct ChangePasswordSection: View {
             SecureField("New password", text: $password)
                 .textContentType(.password)
             if let passwordError {
-                Text(passwordError).foregroundStyle(.red).font(.caption)
+                Text(passwordError).foregroundStyle(Theme.danger).font(.caption)
             } else {
                 Text("At least \(PasswordLimits.min) characters.")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.muted)
             }
 
             SecureField("Type it again", text: $confirm)
                 .textContentType(.password)
             if let confirmError {
-                Text(confirmError).foregroundStyle(.red).font(.caption)
+                Text(confirmError).foregroundStyle(Theme.danger).font(.caption)
             }
 
             if let message {
                 Text(message)
-                    .foregroundStyle(messageIsError ? .red : .green)
+                    .foregroundStyle(messageIsError ? Theme.danger : Theme.success)
                     .font(.callout)
             }
 
@@ -84,11 +87,12 @@ private struct ChangePasswordSection: View {
                     Text("Change password")
                 }
             }
+            .buttonStyle(.brand)
             .disabled(isSubmitting)
         }
         .padding(16)
         .frame(maxWidth: 420, alignment: .leading)
-        .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
+        .panelStyle()
     }
 
     private func submit() {

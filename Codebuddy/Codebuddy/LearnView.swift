@@ -14,8 +14,9 @@ struct LearnView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text("Learn")
+                Label("Learn", systemImage: "book")
                     .font(.largeTitle.bold())
+                    .foregroundStyle(Theme.learn)
 
                 Picker("Level", selection: $level) {
                     ForEach(LearnerLevel.allCases) { level in
@@ -29,7 +30,9 @@ struct LearnView: View {
 
                 TextEditor(text: $question)
                     .frame(height: 100)
-                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(.quaternary))
+                    .padding(6)
+                    .background(Theme.surface, in: RoundedRectangle(cornerRadius: 6))
+                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
 
                 HStack {
                     Button(action: submit) {
@@ -39,17 +42,18 @@ struct LearnView: View {
                             Text("Ask")
                         }
                     }
+                    .buttonStyle(.mode(.learn))
                     .disabled(isSubmitting || question.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
 
                     if let remainingToday {
                         Text("\(remainingToday) questions left today")
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.muted)
                     }
                 }
 
                 if let errorMessage {
-                    Text(errorMessage).foregroundStyle(.red)
+                    Text(errorMessage).foregroundStyle(Theme.danger)
                 }
 
                 if let answer {
@@ -60,6 +64,7 @@ struct LearnView: View {
             }
             .padding(24)
         }
+        .background(Theme.canvas)
         .navigationTitle("Learn")
     }
 
@@ -99,27 +104,30 @@ private struct LearnAnswerView: View {
                     .font(.system(.body, design: .monospaced))
                     .padding(8)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
+                    .background(Theme.codeBackground, in: RoundedRectangle(cornerRadius: 6))
+                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
             }
 
             if !answer.keyPoints.isEmpty {
                 VStack(alignment: .leading, spacing: 4) {
                     ForEach(answer.keyPoints, id: \.self) { point in
-                        Text("•  \(point)")
+                        Text("\u{2022}  \(point)")
                     }
                 }
             }
 
             if !answer.followUpQuestions.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Follow-up questions").font(.headline)
+                    Text("Follow-up questions").font(.headline).foregroundStyle(Theme.learn)
                     ForEach(answer.followUpQuestions, id: \.self) { followUp in
                         Button(followUp) { onFollowUp(followUp) }
-                            .buttonStyle(.bordered)
+                            .buttonStyle(.secondaryPanel)
                     }
                 }
             }
         }
+        .padding(16)
+        .panelStyle()
     }
 }
 

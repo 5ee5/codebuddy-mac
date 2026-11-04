@@ -32,6 +32,7 @@
 		2C1E52A90C57E27D4CB3A6E6 /* PracticeCheckerFizzBuzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514F64D72EED97192D1DF7FD /* PracticeCheckerFizzBuzz.swift */; };
 		33E7DD7FA96E715048D4957F /* PracticeCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A686F30E90B8834FDEE425 /* PracticeCheck.swift */; };
 		5A98C594164790633AA792FA /* PracticeProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E005329D3D09E860440934C2 /* PracticeProgressStore.swift */; };
+		AEC28FB838BD522C062180BD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C903C36313092539923106E /* Theme.swift */; };
 		0D424B0D4C5D9137CF1023A6 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = C21257300E20E0C812155460 /* Auth */; };
 		3A6B1C9D2E4F5061728394A5 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 4B7C2D0E3F5061728495A6B7 /* PostgREST */; };
 		879C6DE5309A7AEF0048D272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 879C6DE4309A7AEF0048D272 /* Assets.xcassets */; };
@@ -93,6 +94,7 @@
 		514F64D72EED97192D1DF7FD /* PracticeCheckerFizzBuzz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheckerFizzBuzz.swift; sourceTree = "<group>"; };
 		58A686F30E90B8834FDEE425 /* PracticeCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheck.swift; sourceTree = "<group>"; };
 		E005329D3D09E860440934C2 /* PracticeProgressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeProgressStore.swift; sourceTree = "<group>"; };
+		6C903C36313092539923106E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				514F64D72EED97192D1DF7FD /* PracticeCheckerFizzBuzz.swift */,
 				58A686F30E90B8834FDEE425 /* PracticeCheck.swift */,
 				E005329D3D09E860440934C2 /* PracticeProgressStore.swift */,
+				6C903C36313092539923106E /* Theme.swift */,
 				879C6DE4309A7AEF0048D272 /* Assets.xcassets */,
 				879C6DE6309A7AEF0048D272 /* Codebuddy.entitlements */,
 				879C6DE7309A7AEF0048D272 /* Preview Content */,
@@ -364,6 +367,7 @@
 				2C1E52A90C57E27D4CB3A6E6 /* PracticeCheckerFizzBuzz.swift in Sources */,
 				33E7DD7FA96E715048D4957F /* PracticeCheck.swift in Sources */,
 				5A98C594164790633AA792FA /* PracticeProgressStore.swift in Sources */,
+				AEC28FB838BD522C062180BD /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

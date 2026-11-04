@@ -11,6 +11,7 @@ struct SignInView: View {
         VStack(spacing: 16) {
             Text("Sign in to CodeBuddy")
                 .font(.title2.bold())
+                .foregroundStyle(Theme.ink)
 
             TextField("Email", text: $email)
                 .textContentType(.username)
@@ -22,7 +23,7 @@ struct SignInView: View {
 
             if let errorMessage {
                 Text(errorMessage)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(Theme.danger)
                     .font(.callout)
                     .multilineTextAlignment(.center)
             }
@@ -36,11 +37,16 @@ struct SignInView: View {
                         .frame(maxWidth: .infinity)
                 }
             }
+            .buttonStyle(.brand)
             .keyboardShortcut(.defaultAction)
             .disabled(isSubmitting || email.isEmpty || password.isEmpty)
         }
         .padding(32)
         .frame(width: 320)
+        .panelStyle()
+        .padding(40)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Theme.canvas)
     }
 
     private func signIn() {

@@ -38,6 +38,7 @@ struct PracticeView: View {
                 .padding(24)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .background(Theme.canvas)
         }
         .navigationTitle("Practice")
         .task { await loadProgress() }
@@ -59,15 +60,17 @@ struct PracticeView: View {
                         difficultyMeter(ex.difficulty)
                     }
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.muted)
                 }
                 Spacer()
                 if solvedIds.contains(ex.id) {
-                    Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                    Image(systemName: "checkmark.circle.fill").foregroundStyle(Theme.success)
                 }
             }
             .tag(ex.id)
         }
+        .scrollContentBackground(.hidden)
+        .background(Theme.surface)
         .navigationTitle("Exercises")
     }
 
@@ -75,7 +78,7 @@ struct PracticeView: View {
         HStack(spacing: 2) {
             ForEach(0..<3, id: \.self) { i in
                 Circle()
-                    .fill(i < d.filledBars ? AnyShapeStyle(.secondary) : AnyShapeStyle(.quaternary))
+                    .fill(i < d.filledBars ? Theme.practice : Theme.lineStrong)
                     .frame(width: 5, height: 5)
             }
         }
@@ -85,8 +88,10 @@ struct PracticeView: View {
 
     private var exerciseHeader: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(exercise.title).font(.largeTitle.bold())
-            Text(exercise.description).foregroundStyle(.secondary)
+            Label(exercise.title, systemImage: "pencil")
+                .font(.largeTitle.bold())
+                .foregroundStyle(Theme.practice)
+            Text(exercise.description).foregroundStyle(Theme.muted)
             VStack(alignment: .leading, spacing: 4) {
                 Text("Your solution should").font(.headline)
                 ForEach(exercise.requirements, id: \.self) { req in
@@ -101,7 +106,9 @@ struct PracticeView: View {
     private var hintsSection: some View {
         let opened = hintsOpened[selectedId] ?? []
         return VStack(alignment: .leading, spacing: 6) {
-            Text("Hints (\(opened.count) of \(exercise.hints.count) used)").font(.headline)
+            Text("Hints (\(opened.count) of \(exercise.hints.count) used)")
+                .font(.headline)
+                .foregroundStyle(Theme.practice)
             ForEach(Array(exercise.hints.enumerated()), id: \.offset) { idx, hint in
                 DisclosureGroup(
                     isExpanded: Binding(get: { opened.contains(idx) }, set: { if $0 { openHint(idx) } }),
@@ -129,7 +136,8 @@ struct PracticeView: View {
                 .font(.system(.callout, design: .monospaced))
                 .padding(8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
+                .background(Theme.codeBackground, in: RoundedRectangle(cornerRadius: 6))
+                .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
 
             Text("Your solution").font(.headline)
             TextEditor(text: Binding(
@@ -141,7 +149,9 @@ struct PracticeView: View {
             ))
             .font(.system(.body, design: .monospaced))
             .frame(height: 220)
-            .overlay(RoundedRectangle(cornerRadius: 6).stroke(.quaternary))
+            .padding(6)
+            .background(Theme.surface, in: RoundedRectangle(cornerRadius: 6))
+            .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
         }
     }
 
@@ -151,11 +161,14 @@ struct PracticeView: View {
         let error = validatePracticeSubmission(draft(for: selectedId), starterCode: exercise.starterCode)
         return VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Button("Check answer", action: submitCheck).disabled(error != nil)
-                Button("Reset to starter code", role: .destructive, action: resetToStarter)
+                Button("Check answer", action: submitCheck)
+                    .buttonStyle(.mode(.practice))
+                    .disabled(error != nil)
+                Button("Reset to starter code", action: resetToStarter)
+                    .buttonStyle(.secondaryPanel)
             }
             if let error {
-                Text(error).font(.caption).foregroundStyle(.secondary)
+                Text(error).font(.caption).foregroundStyle(Theme.muted)
             }
         }
     }
@@ -218,12 +231,12 @@ private struct PracticeResultsView: View {
             Text(check.summary)
             Text("CodeBuddy read your code and worked out the results from it. Your code was never run, and nothing was sent anywhere.")
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Theme.muted)
 
             if isStale {
                 Text("You've changed your code since this check. Choose Check answer again to update it.")
                     .font(.caption)
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(Theme.status)
             }
 
             if !check.checks.isEmpty {
@@ -235,7 +248,7 @@ private struct PracticeResultsView: View {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(c.label).bold()
                                 if let detail = c.detail {
-                                    Text(detail).font(.caption).foregroundStyle(.secondary)
+                                    Text(detail).font(.caption).foregroundStyle(Theme.muted)
                                 }
                             }
                         }
@@ -249,7 +262,7 @@ private struct PracticeResultsView: View {
                     ForEach(check.tests) { t in
                         VStack(alignment: .leading, spacing: 2) {
                             Text(t.label).bold()
-                            Text(t.call).font(.system(.caption, design: .monospaced)).foregroundStyle(.secondary)
+                            Text(t.call).font(.system(.caption, design: .monospaced)).foregroundStyle(Theme.muted)
                             HStack(spacing: 16) {
                                 Text("Expected: \(t.expected)")
                                 Text("Your code: \(t.actual ?? "Can't tell without running it")")
@@ -263,7 +276,7 @@ private struct PracticeResultsView: View {
 
             if let hint = check.hint {
                 HStack(alignment: .top, spacing: 8) {
-                    Image(systemName: "lightbulb")
+                    Image(systemName: "lightbulb").foregroundStyle(Theme.status)
                     Text(hint)
                 }
                 .font(.callout)
@@ -271,7 +284,7 @@ private struct PracticeResultsView: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
+        .panelStyle()
     }
 
     private var verdictIcon: String {
@@ -283,9 +296,9 @@ private struct PracticeResultsView: View {
     }
     private var verdictColor: Color {
         switch check.verdict {
-        case .correct: .green
-        case .partial, .unverified: .blue
-        case .incorrect: .red
+        case .correct: Theme.success
+        case .partial, .unverified: Theme.status
+        case .incorrect: Theme.danger
         }
     }
     private func icon(for status: CheckStatus) -> String {
@@ -297,9 +310,9 @@ private struct PracticeResultsView: View {
     }
     private func color(for status: CheckStatus) -> Color {
         switch status {
-        case .pass: .green
-        case .fail: .red
-        case .unverified: .blue
+        case .pass: Theme.success
+        case .fail: Theme.danger
+        case .unverified: Theme.status
         }
     }
 }
