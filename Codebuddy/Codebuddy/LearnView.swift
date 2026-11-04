@@ -33,6 +33,7 @@ struct LearnView: View {
                     .padding(6)
                     .background(Theme.surface, in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
+                    .placeholder("What would you like to understand?", show: question.isEmpty)
 
                 HStack {
                     Button(action: submit) {

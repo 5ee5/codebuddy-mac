@@ -218,6 +218,24 @@ extension ButtonStyle where Self == ModeButtonStyle {
     static func mode(_ mode: ModeAccent) -> ModeButtonStyle { ModeButtonStyle(mode: mode) }
 }
 
+// MARK: - Placeholder text
+
+extension View {
+    /// `TextEditor` has no built-in placeholder (unlike `TextField`), so this
+    /// overlays one that disappears once there's real content.
+    func placeholder(_ text: String, show: Bool) -> some View {
+        overlay(alignment: .topLeading) {
+            if show {
+                Text(text)
+                    .foregroundStyle(Theme.subtle)
+                    .padding(.leading, 9)
+                    .padding(.top, 8)
+                    .allowsHitTesting(false)
+            }
+        }
+    }
+}
+
 // MARK: - Empty / loading states
 
 /// Shown before the user has submitted anything, so the result area never

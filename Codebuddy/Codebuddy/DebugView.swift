@@ -31,6 +31,7 @@ struct DebugView: View {
                     .padding(6)
                     .background(Theme.codeBackground, in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
+                    .placeholder("Paste the code that's misbehaving\u{2026}", show: code.isEmpty)
 
                 Text("What went wrong").font(.headline)
                 TextEditor(text: $problem)
@@ -38,6 +39,7 @@ struct DebugView: View {
                     .padding(6)
                     .background(Theme.surface, in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line))
+                    .placeholder("What error did you see, or what did you expect to happen instead?", show: problem.isEmpty)
 
                 Button(action: submit) {
                     if isSubmitting {
