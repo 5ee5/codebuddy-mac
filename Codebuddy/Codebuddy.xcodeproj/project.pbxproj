@@ -16,7 +16,24 @@
 		9F8929A2DEDCBAD2EF5CFAC1 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C7B16C33A8FA88836698D /* SignInView.swift */; };
 		5DD9CE5ED0740F0C51C7FB0F /* LearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564F105FA1FD1B4C4FF7048F /* LearnView.swift */; };
 		10DFEA5E864CCC9BD9FA7D35 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC11779225F93D75D9389B42 /* DebugView.swift */; };
+		00D17D2B70B42F832C8AB90F /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47176CDC1338BE7B000640CC /* AccountView.swift */; };
+		CA45DAC76EA5C769B3B3AD1A /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B5642150DD6C382CF6C1A8 /* PracticeView.swift */; };
+		0A108CE6B6E166C8C721B51D /* PracticeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB98C3F06E93F4D3F0DC3DB /* PracticeModels.swift */; };
+		C64C4C5D3D7D535E653EABF6 /* PracticeExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3168C6CD33C7032E93D9696 /* PracticeExercises.swift */; };
+		D7102967A4AD87D6150FBB17 /* PracticeSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D482F06177FC1949C4E465F /* PracticeSource.swift */; };
+		0D9998865E681822E70DBE36 /* PracticeJSTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF88292C7555C834A88C228 /* PracticeJSTokenizer.swift */; };
+		ACFE42CDC9C4097A06F92518 /* PracticePyLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDF18E8F98FF975F8110CF /* PracticePyLines.swift */; };
+		F0AF142484971B9A305FAAFA /* PracticePyTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194BB0813A6FED599258B21A /* PracticePyTokenizer.swift */; };
+		54F71AF47B7C5094C4A5305A /* PracticeCheckerShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE40F0C6B7D23DE58A4ABC /* PracticeCheckerShared.swift */; };
+		C8BC28F2C2963A2567B9D677 /* PracticeCheckerGreetUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B014D49D4D3C653B95A78 /* PracticeCheckerGreetUser.swift */; };
+		3580FD8CA9F4F6D9E19F332F /* PracticeCheckerSumList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AFE3D91AF58FC572D36051 /* PracticeCheckerSumList.swift */; };
+		52F6644B5D815FDB75A30507 /* PracticeCheckerCountVowels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E12F7880C60E130E50501B /* PracticeCheckerCountVowels.swift */; };
+		5E5864D025BA4F0FDB934475 /* PracticeCheckerLargestNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61EBF33ACD512C24CF19859 /* PracticeCheckerLargestNumber.swift */; };
+		2C1E52A90C57E27D4CB3A6E6 /* PracticeCheckerFizzBuzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514F64D72EED97192D1DF7FD /* PracticeCheckerFizzBuzz.swift */; };
+		33E7DD7FA96E715048D4957F /* PracticeCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A686F30E90B8834FDEE425 /* PracticeCheck.swift */; };
+		5A98C594164790633AA792FA /* PracticeProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E005329D3D09E860440934C2 /* PracticeProgressStore.swift */; };
 		0D424B0D4C5D9137CF1023A6 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = C21257300E20E0C812155460 /* Auth */; };
+		3A6B1C9D2E4F5061728394A5 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 4B7C2D0E3F5061728495A6B7 /* PostgREST */; };
 		879C6DE5309A7AEF0048D272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 879C6DE4309A7AEF0048D272 /* Assets.xcassets */; };
 		879C6DE9309A7AEF0048D272 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 879C6DE8309A7AEF0048D272 /* Preview Assets.xcassets */; };
 		879C6DF3309A7AF00048D272 /* CodebuddyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C6DF2309A7AF00048D272 /* CodebuddyTests.swift */; };
@@ -60,6 +77,22 @@
 		ED0C7B16C33A8FA88836698D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		564F105FA1FD1B4C4FF7048F /* LearnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnView.swift; sourceTree = "<group>"; };
 		EC11779225F93D75D9389B42 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
+		47176CDC1338BE7B000640CC /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		68B5642150DD6C382CF6C1A8 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
+		ADB98C3F06E93F4D3F0DC3DB /* PracticeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModels.swift; sourceTree = "<group>"; };
+		F3168C6CD33C7032E93D9696 /* PracticeExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeExercises.swift; sourceTree = "<group>"; };
+		0D482F06177FC1949C4E465F /* PracticeSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSource.swift; sourceTree = "<group>"; };
+		8DF88292C7555C834A88C228 /* PracticeJSTokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeJSTokenizer.swift; sourceTree = "<group>"; };
+		35CDF18E8F98FF975F8110CF /* PracticePyLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticePyLines.swift; sourceTree = "<group>"; };
+		194BB0813A6FED599258B21A /* PracticePyTokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticePyTokenizer.swift; sourceTree = "<group>"; };
+		DEFE40F0C6B7D23DE58A4ABC /* PracticeCheckerShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheckerShared.swift; sourceTree = "<group>"; };
+		102B014D49D4D3C653B95A78 /* PracticeCheckerGreetUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheckerGreetUser.swift; sourceTree = "<group>"; };
+		D3AFE3D91AF58FC572D36051 /* PracticeCheckerSumList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheckerSumList.swift; sourceTree = "<group>"; };
+		D5E12F7880C60E130E50501B /* PracticeCheckerCountVowels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheckerCountVowels.swift; sourceTree = "<group>"; };
+		B61EBF33ACD512C24CF19859 /* PracticeCheckerLargestNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheckerLargestNumber.swift; sourceTree = "<group>"; };
+		514F64D72EED97192D1DF7FD /* PracticeCheckerFizzBuzz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheckerFizzBuzz.swift; sourceTree = "<group>"; };
+		58A686F30E90B8834FDEE425 /* PracticeCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCheck.swift; sourceTree = "<group>"; };
+		E005329D3D09E860440934C2 /* PracticeProgressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeProgressStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D424B0D4C5D9137CF1023A6 /* Auth in Frameworks */,
+				3A6B1C9D2E4F5061728394A5 /* PostgREST in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +154,22 @@
 				ED0C7B16C33A8FA88836698D /* SignInView.swift */,
 				564F105FA1FD1B4C4FF7048F /* LearnView.swift */,
 				EC11779225F93D75D9389B42 /* DebugView.swift */,
+				47176CDC1338BE7B000640CC /* AccountView.swift */,
+				68B5642150DD6C382CF6C1A8 /* PracticeView.swift */,
+				ADB98C3F06E93F4D3F0DC3DB /* PracticeModels.swift */,
+				F3168C6CD33C7032E93D9696 /* PracticeExercises.swift */,
+				0D482F06177FC1949C4E465F /* PracticeSource.swift */,
+				8DF88292C7555C834A88C228 /* PracticeJSTokenizer.swift */,
+				35CDF18E8F98FF975F8110CF /* PracticePyLines.swift */,
+				194BB0813A6FED599258B21A /* PracticePyTokenizer.swift */,
+				DEFE40F0C6B7D23DE58A4ABC /* PracticeCheckerShared.swift */,
+				102B014D49D4D3C653B95A78 /* PracticeCheckerGreetUser.swift */,
+				D3AFE3D91AF58FC572D36051 /* PracticeCheckerSumList.swift */,
+				D5E12F7880C60E130E50501B /* PracticeCheckerCountVowels.swift */,
+				B61EBF33ACD512C24CF19859 /* PracticeCheckerLargestNumber.swift */,
+				514F64D72EED97192D1DF7FD /* PracticeCheckerFizzBuzz.swift */,
+				58A686F30E90B8834FDEE425 /* PracticeCheck.swift */,
+				E005329D3D09E860440934C2 /* PracticeProgressStore.swift */,
 				879C6DE4309A7AEF0048D272 /* Assets.xcassets */,
 				879C6DE6309A7AEF0048D272 /* Codebuddy.entitlements */,
 				879C6DE7309A7AEF0048D272 /* Preview Content */,
@@ -170,6 +220,7 @@
 			name = Codebuddy;
 			packageProductDependencies = (
 				C21257300E20E0C812155460 /* Auth */,
+				4B7C2D0E3F5061728495A6B7 /* PostgREST */,
 			);
 			productName = Codebuddy;
 			productReference = 879C6DDD309A7AED0048D272 /* Codebuddy.app */;
@@ -297,6 +348,22 @@
 				9F8929A2DEDCBAD2EF5CFAC1 /* SignInView.swift in Sources */,
 				5DD9CE5ED0740F0C51C7FB0F /* LearnView.swift in Sources */,
 				10DFEA5E864CCC9BD9FA7D35 /* DebugView.swift in Sources */,
+				00D17D2B70B42F832C8AB90F /* AccountView.swift in Sources */,
+				CA45DAC76EA5C769B3B3AD1A /* PracticeView.swift in Sources */,
+				0A108CE6B6E166C8C721B51D /* PracticeModels.swift in Sources */,
+				C64C4C5D3D7D535E653EABF6 /* PracticeExercises.swift in Sources */,
+				D7102967A4AD87D6150FBB17 /* PracticeSource.swift in Sources */,
+				0D9998865E681822E70DBE36 /* PracticeJSTokenizer.swift in Sources */,
+				ACFE42CDC9C4097A06F92518 /* PracticePyLines.swift in Sources */,
+				F0AF142484971B9A305FAAFA /* PracticePyTokenizer.swift in Sources */,
+				54F71AF47B7C5094C4A5305A /* PracticeCheckerShared.swift in Sources */,
+				C8BC28F2C2963A2567B9D677 /* PracticeCheckerGreetUser.swift in Sources */,
+				3580FD8CA9F4F6D9E19F332F /* PracticeCheckerSumList.swift in Sources */,
+				52F6644B5D815FDB75A30507 /* PracticeCheckerCountVowels.swift in Sources */,
+				5E5864D025BA4F0FDB934475 /* PracticeCheckerLargestNumber.swift in Sources */,
+				2C1E52A90C57E27D4CB3A6E6 /* PracticeCheckerFizzBuzz.swift in Sources */,
+				33E7DD7FA96E715048D4957F /* PracticeCheck.swift in Sources */,
+				5A98C594164790633AA792FA /* PracticeProgressStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,6 +737,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C80EF5C816925797C2519394 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Auth;
+		};
+		4B7C2D0E3F5061728495A6B7 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C80EF5C816925797C2519394 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

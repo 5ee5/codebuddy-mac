@@ -23,20 +23,23 @@ struct ContentView: View {
 
 private enum AppMode: String, CaseIterable, Identifiable {
     case learn = "Learn"
+    case practice = "Practice"
     case debug = "Debug"
+    case account = "Account"
 
     var id: Self { self }
 
     var systemImage: String {
         switch self {
         case .learn: "book"
+        case .practice: "pencil"
         case .debug: "ladybug"
+        case .account: "person.circle"
         }
     }
 }
 
 private struct MainShellView: View {
-    @EnvironmentObject private var supabase: SupabaseService
     @State private var selection: AppMode? = .learn
 
     var body: some View {
@@ -45,17 +48,14 @@ private struct MainShellView: View {
                 Label(mode.rawValue, systemImage: mode.systemImage)
             }
             .navigationTitle("CodeBuddy")
-            .toolbar {
-                ToolbarItem {
-                    Button("Sign Out") {
-                        Task { await supabase.signOut() }
-                    }
-                }
-            }
         } detail: {
             switch selection {
+            case .practice:
+                PracticeView()
             case .debug:
                 DebugView()
+            case .account:
+                AccountView()
             case .learn, .none:
                 LearnView()
             }

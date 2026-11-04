@@ -26,6 +26,8 @@ final class SupabaseService: ObservableObject {
     }
 
     var accessToken: String? { session?.accessToken }
+    var email: String? { session?.user.email }
+    var userId: UUID? { session?.user.id }
 
     func signIn(email: String, password: String) async throws {
         try await client.signIn(email: email, password: password)
@@ -33,5 +35,9 @@ final class SupabaseService: ObservableObject {
 
     func signOut() async {
         try? await client.signOut()
+    }
+
+    func changePassword(_ newPassword: String) async throws {
+        _ = try await client.update(user: UserAttributes(password: newPassword))
     }
 }
