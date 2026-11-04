@@ -14,7 +14,7 @@ struct DebugView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 Label("Debug", systemImage: "ladybug")
-                    .font(.largeTitle.bold())
+                    .font(.display(.largeTitle))
                     .foregroundStyle(Theme.debug)
 
                 Picker("Language", selection: $language) {
@@ -57,8 +57,17 @@ struct DebugView: View {
                     Text(errorMessage).foregroundStyle(Theme.danger)
                 }
 
-                if let answer {
+                if isSubmitting {
+                    LoadingPlaceholder(message: "Reading through your code\u{2026}")
+                } else if let answer {
                     DebugAnswerView(answer: answer)
+                } else {
+                    EmptyStatePlaceholder(
+                        icon: "ladybug",
+                        title: "Paste the code that's misbehaving",
+                        message: "Add your code and describe what went wrong, and CodeBuddy will diagnose it and suggest a fix.",
+                        accent: Theme.debug
+                    )
                 }
             }
             .padding(24)

@@ -33,6 +33,13 @@ struct PracticeView: View {
                     actionRow
                     if let check = checks[selectedId] {
                         PracticeResultsView(check: check, isStale: isStale(check))
+                    } else {
+                        EmptyStatePlaceholder(
+                            icon: "checklist",
+                            title: "Write your solution, then check it",
+                            message: "CodeBuddy reads your code and checks it against this exercise's requirements \u{2014} nothing is run, and nothing leaves your device.",
+                            accent: Theme.practice
+                        )
                     }
                 }
                 .padding(24)
@@ -89,7 +96,7 @@ struct PracticeView: View {
     private var exerciseHeader: some View {
         VStack(alignment: .leading, spacing: 10) {
             Label(exercise.title, systemImage: "pencil")
-                .font(.largeTitle.bold())
+                .font(.display(.largeTitle))
                 .foregroundStyle(Theme.practice)
             Text(exercise.description).foregroundStyle(Theme.muted)
             VStack(alignment: .leading, spacing: 4) {

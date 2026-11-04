@@ -121,6 +121,17 @@ private extension UIColor {
 }
 #endif
 
+// MARK: - Typography
+
+extension Font {
+    /// The web app's `font-display` (Fraunces) is a Google Font with no local
+    /// files to bundle, so headlines use the system serif instead — same
+    /// "friendlier serif" intent without shipping extra font binaries.
+    static func display(_ style: Font.TextStyle, weight: Font.Weight = .bold) -> Font {
+        .system(style, design: .serif).weight(weight)
+    }
+}
+
 // MARK: - Shared controls
 
 /// Flat, bordered surface: hairline border, small radius, no shadow — mirrors
@@ -137,15 +148,32 @@ extension View {
     func panelStyle() -> some View { modifier(PanelBackground()) }
 }
 
+/// Tracks hover state for a button style, since `ButtonStyleConfiguration`
+/// only reports press state. Combines hover and press into one "active" flag.
+private struct HoverableButtonLabel<Content: View>: View {
+    let isPressed: Bool
+    @ViewBuilder let content: (Bool) -> Content
+    @State private var isHovering = false
+
+    var body: some View {
+        content(isPressed || isHovering)
+            .scaleEffect(isPressed ? 0.97 : 1)
+            .animation(.easeOut(duration: 0.12), value: isPressed)
+            .onHover { isHovering = $0 }
+    }
+}
+
 /// The ink call-to-action button: dark fill, light text, used outside a mode.
 struct BrandButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.body.weight(.semibold))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(Theme.brand.opacity(configuration.isPressed ? 0.85 : 1), in: RoundedRectangle(cornerRadius: 6))
-            .foregroundStyle(Theme.brandInk)
+        HoverableButtonLabel(isPressed: configuration.isPressed) { active in
+            configuration.label
+                .font(.body.weight(.semibold))
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(Theme.brand.opacity(active ? 0.85 : 1), in: RoundedRectangle(cornerRadius: 6))
+                .foregroundStyle(Theme.brandInk)
+        }
     }
 }
 
@@ -154,25 +182,29 @@ struct ModeButtonStyle: ButtonStyle {
     let mode: ModeAccent
 
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.body.weight(.semibold))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(mode.color.opacity(configuration.isPressed ? 0.85 : 1), in: RoundedRectangle(cornerRadius: 6))
-            .foregroundStyle(mode.ink)
+        HoverableButtonLabel(isPressed: configuration.isPressed) { active in
+            configuration.label
+                .font(.body.weight(.semibold))
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(mode.color.opacity(active ? 0.85 : 1), in: RoundedRectangle(cornerRadius: 6))
+                .foregroundStyle(mode.ink)
+        }
     }
 }
 
 /// Bordered, surface-colored secondary button.
 struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.body.weight(.semibold))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(configuration.isPressed ? Theme.surface2 : Theme.surface, in: RoundedRectangle(cornerRadius: 6))
-            .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.lineStrong))
-            .foregroundStyle(Theme.ink)
+        HoverableButtonLabel(isPressed: configuration.isPressed) { active in
+            configuration.label
+                .font(.body.weight(.semibold))
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(active ? Theme.surface2 : Theme.surface, in: RoundedRectangle(cornerRadius: 6))
+                .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.lineStrong))
+                .foregroundStyle(Theme.ink)
+        }
     }
 }
 
@@ -184,4 +216,46 @@ extension ButtonStyle where Self == SecondaryButtonStyle {
 }
 extension ButtonStyle where Self == ModeButtonStyle {
     static func mode(_ mode: ModeAccent) -> ModeButtonStyle { ModeButtonStyle(mode: mode) }
+}
+
+// MARK: - Empty / loading states
+
+/// Shown before the user has submitted anything, so the result area never
+/// looks simply blank.
+struct EmptyStatePlaceholder: View {
+    let icon: String
+    let title: String
+    let message: String
+    var accent: Color = Theme.muted
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.system(size: 28))
+                .foregroundStyle(accent)
+            Text(title).font(.headline)
+            Text(message)
+                .font(.callout)
+                .foregroundStyle(Theme.muted)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(32)
+        .panelStyle()
+    }
+}
+
+/// Shown while a request is in flight, so waiting has something to look at.
+struct LoadingPlaceholder: View {
+    let message: String
+
+    var body: some View {
+        VStack(spacing: 10) {
+            ProgressView()
+            Text(message).font(.callout).foregroundStyle(Theme.muted)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(32)
+        .panelStyle()
+    }
 }

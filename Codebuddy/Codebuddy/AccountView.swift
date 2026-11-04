@@ -11,7 +11,7 @@ struct AccountView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 Label("Account", systemImage: "person.circle")
-                    .font(.largeTitle.bold())
+                    .font(.display(.largeTitle))
                     .foregroundStyle(Theme.ink)
 
                 if let email = supabase.email {

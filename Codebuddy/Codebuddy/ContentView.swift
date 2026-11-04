@@ -51,6 +51,7 @@ private enum AppMode: String, CaseIterable, Identifiable {
 
 private struct MainShellView: View {
     @State private var selection: AppMode? = .learn
+    @State private var isHoveringAccount = false
 
     /// Everything except Account, which is pinned to the very bottom of the
     /// sidebar instead of scrolling with the rest of the list.
@@ -76,24 +77,35 @@ private struct MainShellView: View {
                     .buttonStyle(.plain)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
-                    .background(selection == .account ? Theme.surface2 : Color.clear)
+                    .background(
+                        selection == .account ? Theme.surface2
+                            : isHoveringAccount ? Theme.surface2.opacity(0.6)
+                            : Color.clear
+                    )
+                    .onHover { isHoveringAccount = $0 }
                 }
             }
             .navigationTitle("CodeBuddy")
             .scrollContentBackground(.hidden)
             .background(Theme.surface)
         } detail: {
-            switch selection {
-            case .practice:
-                PracticeView()
-            case .debug:
-                DebugView()
-            case .account:
-                AccountView()
-            case .learn, .none:
-                LearnView()
+            Group {
+                switch selection {
+                case .practice:
+                    PracticeView()
+                case .debug:
+                    DebugView()
+                case .account:
+                    AccountView()
+                case .learn, .none:
+                    LearnView()
+                }
             }
+            .id(selection)
+            .transition(.opacity)
         }
+        .toolbarBackground(Theme.surface, for: .windowToolbar)
+        .animation(.easeInOut(duration: 0.15), value: selection)
         .background(Theme.canvas)
     }
 

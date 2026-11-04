@@ -10,7 +10,7 @@ struct SignInView: View {
     var body: some View {
         VStack(spacing: 16) {
             Text("Sign in to CodeBuddy")
-                .font(.title2.bold())
+                .font(.display(.title2))
                 .foregroundStyle(Theme.ink)
 
             TextField("Email", text: $email)

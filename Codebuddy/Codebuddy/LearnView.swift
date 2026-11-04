@@ -15,7 +15,7 @@ struct LearnView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 Label("Learn", systemImage: "book")
-                    .font(.largeTitle.bold())
+                    .font(.display(.largeTitle))
                     .foregroundStyle(Theme.learn)
 
                 Picker("Level", selection: $level) {
@@ -56,10 +56,19 @@ struct LearnView: View {
                     Text(errorMessage).foregroundStyle(Theme.danger)
                 }
 
-                if let answer {
+                if isSubmitting {
+                    LoadingPlaceholder(message: "Working out an explanation\u{2026}")
+                } else if let answer {
                     LearnAnswerView(answer: answer) { followUp in
                         question = followUp
                     }
+                } else {
+                    EmptyStatePlaceholder(
+                        icon: "book",
+                        title: "Ask anything",
+                        message: "Pick a level, optionally add a topic, then ask a question to get an explanation with an example and follow-ups.",
+                        accent: Theme.learn
+                    )
                 }
             }
             .padding(24)
