@@ -23,8 +23,8 @@ struct ContentView: View {
 
 private enum AppMode: String, CaseIterable, Identifiable {
     case learn = "Learn"
-    case practice = "Practice"
     case debug = "Debug"
+    case practice = "Practice"
     case account = "Account"
 
     var id: Self { self }
@@ -52,14 +52,31 @@ private enum AppMode: String, CaseIterable, Identifiable {
 private struct MainShellView: View {
     @State private var selection: AppMode? = .learn
 
+    /// Everything except Account, which is pinned to the very bottom of the
+    /// sidebar instead of scrolling with the rest of the list.
+    private let scrollableModes: [AppMode] = [.learn, .debug, .practice]
+
     var body: some View {
         NavigationSplitView {
-            List(AppMode.allCases, selection: $selection) { mode in
-                Label {
-                    Text(mode.rawValue)
-                } icon: {
-                    Image(systemName: mode.systemImage)
-                        .foregroundStyle(mode.accent?.color ?? Theme.ink)
+            List(scrollableModes, selection: $selection) { mode in
+                modeLabel(mode)
+            }
+            .safeAreaInset(edge: .bottom) {
+                VStack(spacing: 0) {
+                    Divider()
+                    Button {
+                        selection = .account
+                    } label: {
+                        HStack {
+                            modeLabel(.account)
+                            Spacer()
+                        }
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(selection == .account ? Theme.surface2 : Color.clear)
                 }
             }
             .navigationTitle("CodeBuddy")
@@ -78,6 +95,15 @@ private struct MainShellView: View {
             }
         }
         .background(Theme.canvas)
+    }
+
+    private func modeLabel(_ mode: AppMode) -> some View {
+        Label {
+            Text(mode.rawValue)
+        } icon: {
+            Image(systemName: mode.systemImage)
+                .foregroundStyle(mode.accent?.color ?? Theme.ink)
+        }
     }
 }
 
