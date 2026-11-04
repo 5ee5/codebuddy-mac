@@ -6,6 +6,7 @@ struct SignInView: View {
     @State private var password = ""
     @State private var errorMessage: String?
     @State private var isSubmitting = false
+    @State private var isSigningInWithGitHub = false
 
     var body: some View {
         VStack(spacing: 16) {
@@ -40,6 +41,23 @@ struct SignInView: View {
             .buttonStyle(.brand)
             .keyboardShortcut(.defaultAction)
             .disabled(isSubmitting || email.isEmpty || password.isEmpty)
+
+            HStack {
+                Rectangle().fill(Theme.line).frame(height: 1)
+                Text("or").font(.caption).foregroundStyle(Theme.subtle)
+                Rectangle().fill(Theme.line).frame(height: 1)
+            }
+
+            Button(action: signInWithGitHub) {
+                if isSigningInWithGitHub {
+                    ProgressView().frame(maxWidth: .infinity)
+                } else {
+                    Label("Continue with GitHub", systemImage: "chevron.left.forwardslash.chevron.right")
+                        .frame(maxWidth: .infinity)
+                }
+            }
+            .buttonStyle(.secondaryPanel)
+            .disabled(isSubmitting || isSigningInWithGitHub)
         }
         .padding(32)
         .frame(width: 320)
@@ -60,6 +78,20 @@ struct SignInView: View {
                 errorMessage = error.localizedDescription
             }
             isSubmitting = false
+        }
+    }
+
+    private func signInWithGitHub() {
+        guard !isSigningInWithGitHub else { return }
+        isSigningInWithGitHub = true
+        errorMessage = nil
+        Task {
+            do {
+                try await supabase.signInWithGitHub()
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+            isSigningInWithGitHub = false
         }
     }
 }

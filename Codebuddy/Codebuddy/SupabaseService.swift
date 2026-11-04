@@ -33,6 +33,14 @@ final class SupabaseService: ObservableObject {
         try await client.signIn(email: email, password: password)
     }
 
+    /// Opens a system browser sheet for GitHub, then exchanges the redirect
+    /// back to `Config.oauthRedirectURL` for a session. GitHub is already
+    /// enabled on the Supabase project; the redirect URL just needs to be
+    /// allow-listed there too (Authentication → URL Configuration).
+    func signInWithGitHub() async throws {
+        try await client.signInWithOAuth(provider: .github, redirectTo: Config.oauthRedirectURL)
+    }
+
     func signOut() async {
         try? await client.signOut()
     }

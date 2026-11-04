@@ -12,4 +12,9 @@ enum Config {
 
     /// Base URL of the deployed Next.js app.
     static let apiBaseURL = URL(string: "https://codebuddy.5ee5.dev")!
+
+    /// Where GitHub OAuth redirects back to after signing in. Matches the
+    /// `CFBundleURLTypes` entry in Info.plist; must also be allow-listed in
+    /// Supabase under Authentication → URL Configuration → Redirect URLs.
+    static let oauthRedirectURL = URL(string: "dev.5ee5.codebuddy://login-callback")!
 }
